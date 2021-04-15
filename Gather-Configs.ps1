@@ -1,13 +1,28 @@
-$paths = @{ git = '~/.gitconfig', '.gitconfig'; nvim = '~/AppData/Local/nvim', 'nvim' }
+$git = @{ src = '~/.gitconfig'; dest = './.gitconfig'; exclude = $null }
+$nvim = @{ src = '~/AppData/Local/nvim'; dest = './nvim'; exclude = '~/AppData/Local/nvim/plugged/*', '~/AppData/Local/nvim/rplugin/*' }
+$ps = @{ src = '~/Documents/WindowsPowerShell'; dest = './WindowsPowerShell'; exclude = @('~/Documents/WindowsPowerShell/Modules/*') }
+
+$paths = $git, $nvim, $ps
+
+function CopyFilesToFolder ($fromFolder, $toFolder, $exclude) {
+  $childItems = Get-ChildItem $fromFolder
+  $childItems | ForEach-Object {
+    Copy-Item -Path $_.FullName -Destination $toFolder -Recurse -Force -Exclude $exclude
+  }
+}
 
 function Gather-Configs {
-  $paths.GetEnumerator() | ForEach-Object -Process {
-    Copy-Item $_.value[0] -Destination $_.value[1] -Recurse
+  $paths | ForEach-Object -Process {
+    Copy-Item -Path $_.src -Destination $_.dest -Recurse -Force -Exclude $exclude
   }
 }
 
 function Distribute-Configs {
-  $paths.GetEnumerator() | ForEach-Object -Process {
-    Copy-Item $_.value[1] -Destination $_.value[0] -Recurse
+  $paths | ForEach-Object -Process {
+    if ((Get-Item $_.dest) -is [System.IO.DirectoryInfo]) {
+      CopyFilesToFolder $_.dest $_.src $_.exclude
+    } else {
+      Copy-Item -Path $_.dest -Destination $_.src -Force
+    }
   }
 }
