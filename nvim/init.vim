@@ -9,13 +9,11 @@ call plug#begin(stdpath('config').'/plugged/')
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
-  " Plug 'kien/ctrlp.vim'
   Plug 'vim-scripts/utl.vim'
   Plug 'jiangmiao/auto-pairs'
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-speeddating'
   Plug 'tpope/vim-commentary'
-  " Plug 'jremmen/vim-ripgrep'
   Plug 'kassio/neoterm'
   Plug 'mattn/emmet-vim'
   Plug 'junegunn/vim-slash'
@@ -25,8 +23,6 @@ call plug#begin(stdpath('config').'/plugged/')
   Plug 'tommcdo/vim-fubitive'
   Plug 'junegunn/gv.vim'
   Plug 'airblade/vim-gitgutter'
-  " Plug 'mhinz/vim-signify'
-  " Plug 'jreybert/vimagit'
 
   " c#
   Plug 'omnisharp/omnisharp-vim'
@@ -43,7 +39,6 @@ call plug#begin(stdpath('config').'/plugged/')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
   " look and feel
-  Plug 'mhinz/vim-startify'
   Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
   " Plug 'vim-airline/vim-airline'
   " Plug 'vim-airline/vim-airline-themes'
@@ -57,12 +52,26 @@ call plug#begin(stdpath('config').'/plugged/')
   Plug 'ntk148v/vim-horizon'
   Plug 'ludokng/vim-odyssey'
   Plug 'xdg/vim-darkluma'
+  Plug 'challenger-deep-theme/vim'
+  Plug 'maksimr/Lucius2'
+  Plug 'nightsense/cosmic_latte'
+  Plug 'Nequo/vim-allomancer'
+  Plug 'koirand/tokyo-metro.vim'
+  Plug 'hzchirs/vim-material'
+  Plug 'arcticicestudio/nord-vim'
   Plug 'nanotech/jellybeans.vim'
-  Plug 'liuchengxu/space-vim-theme'
+  Plug 'NLKNguyen/papercolor-theme'
+  Plug 'AlessandroYorba/Arcadia'
+  Plug 'crater2150/vim-theme-chroma'
+  Plug 'bcicen/vim-vice'
+  Plug 'dracula/vim'
+  Plug 'sonjapeterson/1989.vim'
+  Plug 'vim-scripts/proton'
+  Plug 'junegunn/seoul256.vim'
 
   " programs / extensions
   " Plug 'tpope/vim-vinegar'
-  Plug 'scrooloose/nerdtree'
+  " Plug 'scrooloose/nerdtree'
   Plug 'preservim/tagbar'
 
   " presentation
@@ -103,6 +112,10 @@ lua require('default_config').configure()
 " set grepprg=rg
 " " command -nargs=+ -complete=file -bar ag silent! grep! <args>|cwindow|redraw!
 
+" Leader
+nnoremap <Space> <Nop>
+let mapleader=" "
+
 " custom key-maps
 nnoremap H ^
 nnoremap L $
@@ -132,72 +145,59 @@ imap <C-k> <c-o>k
 imap <C-l> <c-o>l
 imap <C-h> <c-o>h
 
-" nnoremap <silent> <space>sb :Buffers<CR>
-" nnoremap <silent> <space>sg :GFiles<CR>
+" nnoremap <silent> <leader>sb :Buffers<CR>
+" nnoremap <silent> <leader>sg :GFiles<CR>
 " nnoremap <silent> <c-p> :GFiles<CR>
-" nnoremap <silent> <space>sf :Files<CR>
-nnoremap <silent> <space>gg :GV --all<CR>
-nnoremap <silent> <space>gs :Git<CR>
-"nnoremap <silent> <space>/ :call FzfRg()<CR>
-nnoremap <silent> <space>n :NERDTreeToggle<CR>
+" nnoremap <silent> <leader>sf :Files<CR>
+nnoremap <silent> <leader>gg :GV --all<CR>
+nnoremap <silent> <leader>gs :Git<CR>
+"nnoremap <silent> <leader>/ :call FzfRg()<CR>
+nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 " tnoremap <a-b> <c-\><c-n> :Buffers<CR>
 " tnoremap <a-f> <c-\><c-n> :GFiles<CR>
 " tnoremap <a-/> <c-\><c-n> :call FzfRg()<CR>
 
 " Telescope mappings
-nnoremap <silent> <space>sf <cmd>Telescope find_files<CR>
+nnoremap <silent> <leader>sf <cmd>Telescope find_files<CR>
 nnoremap <silent> <c-p> <cmd>Telescope git_files<CR>
-nnoremap <silent> <space>sg <cmd>Telescope git_files<CR>
-nnoremap <silent> <space>sb <cmd>Telescope buffers<CR>
-nnoremap <silent> <space>ss <cmd>Telescope live_grep<CR>
-nnoremap <silent> <space>sh <cmd>Telescope help_tags<CR>
-nnoremap <silent> <space>so <cmd>Telescope oldfiles<CR>
+nnoremap <silent> <leader>sg <cmd>Telescope git_files<CR>
+nnoremap <silent> <leader>sb <cmd>Telescope buffers<CR>
+nnoremap <silent> <leader>ss <cmd>Telescope live_grep<CR>
+nnoremap <silent> <leader>sh <cmd>Telescope help_tags<CR>
+nnoremap <silent> <leader>so <cmd>Telescope oldfiles<CR>
 tnoremap <a-b> <c-\><c-n> <cmd>Telescope buffers<CR>
 tnoremap <a-f> <c-\><c-n> <cmd>Telescope find_files<CR>
 tnoremap <a-/> <c-\><c-n> <cmd>Telescope live_grep<CR>
 lua require('telescope_config')
 
 
-" " Theme 
-" set termguicolors
-" colorscheme deus
-lua require('theme_config').configure()
+" Theme 
+lua require('theme_config'):configure()
 
-if exists('g:fvim_loaded')
-  set guifont=Cascadia\ Code:h14
-  exe 'FVimCursorSmoothMove v:true'
-endif
-
-" Startify
-let g:startify_custom_header = [
-  \ '   __   _ _______  _____  _    _ _____ _______',
-  \ '   | \  | |______ |     |  \  /    |   |  |  |',
-  \ '   |  \_| |______ |_____|   \/   __|__ |  |  |',
-  \ ]
+" Theme randomization
+function! RandomTheme()
+  lua require('theme_config').setRandomTheme()
+  lua require('statusline').resetHighlights()
+  colorscheme
+endfunction
+command! RandTheme exe 'call RandomTheme()'
+nnoremap <F12> :RandTheme<CR>
 
 " Airline Setup
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'deus'
+" let g:airline_powerline_fonts = 1
+" let g:airline_theme = 'deus'
 " let g:airline_left_sep = ''
 " let g:airline_left_alt_sep = ''
 " let g:airline_right_sep = ''
 " let g:airline_right_alt_sep = ''
 
 "Galaxyline
-lua require('eviline')
-" function! ConfigStatusLine()
-"   lua require('eviline')
-" endfunction
-
-" augroup status_line_init
-"   autocmd!
-"   autocmd vimenter * call ConfigStatusLine()
-" augroup end
+lua require('statusline')
 
 " Signify
-let g:signify_sign_add               = '|'
-let g:signify_sign_delete            = '|'
-let g:signify_sign_change            = '|'
+" let g:signify_sign_add = ''
+" let g:signify_sign_delete = ''
+" let g:signify_sign_change = ''
 
 " Git Gutter
 let g:gitgutter_git_executable = 'C:\Program Files\Git\bin\git.exe'
@@ -213,11 +213,6 @@ let g:gitgutter_git_executable = 'C:\Program Files\Git\bin\git.exe'
 let g:AutoPairsMapCh = 0
 
 " ALE Setup
-let g:ale_echo_cursor = 1
-let g:ale_virtualtext_cursor = 0
-let g:ale_cursor_detail = 0
-let g:ale_set_balloons = 0
-let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_insert_leave = 0
 let g:ale_linters = {
@@ -234,14 +229,8 @@ let g:ale_linters = {
 "   execute ':Rg ' . env
 " endfunction
 
-" " Ctrl-P Setup
-" let g:ctrlp_custom_ignore = {
-"   \ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.yardoc\|node_modules\|public\/images\|public\/system\|data\|log\|tmp$',
-"   \ 'file': '\.exe$\|\.so$\|\.dat$'
-"   \ }
-
 " NERDTree
-let NERDTreeWinPos = 'right'
+" let NERDTreeWinPos = 'right'
 
 " JS specific options
 autocmd FileType css setlocal shiftwidth=2 softtabstop=2 expandtab
@@ -249,9 +238,9 @@ autocmd FileType html setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType javascript.jsx setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType scss setlocal shiftwidth=2 softtabstop=2 expandtab
-autocmd FileType cs let b:coc_root_patterns = ['*.sln', '.git', '.env']
+" autocmd FileType cs let b:coc_root_patterns = ['*.sln', '.git', '.env']
 autocmd FileType cs setlocal shiftwidth=4 softtabstop=4 expandtab
-autocmd BufNewFile,BufRead *.cshtml set syntax=html
+" autocmd BufNewFile,BufRead *.cshtml set syntax=html
 
 command! EditConfig exe 'edit '.stdpath('config').'/init.vim'
 command! Xonsh 20new +call\ termopen("python\ -m\ xonsh")
@@ -315,11 +304,12 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>lcrn <Plug>(coc-rename)
+nmap <F2> <Plug>(coc-rename)
 
 " Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+xmap <leader>lcf  <Plug>(coc-format-selected)
+nmap <leader>lcf  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -330,13 +320,13 @@ augroup mygroup
 augroup end
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+xmap <leader>lca  <Plug>(coc-codeaction-selected)
+nmap <leader>lca  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <leader>lcac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>lcqf  <Plug>(coc-fix-current)
 
 " Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
 " nmap <silent> <TAB> <Plug>(coc-range-select)
@@ -356,23 +346,23 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" " Using CocList
-" " Show all diagnostics
-" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" " Manage extensions
-" nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" " Show commands
-" nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" " Find symbol of current document
-" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" " Search workspace symbols
-" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" " Do default action for next item.
-" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" " Do default action for previous item.
-" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" " Resume latest coc list
-" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <leader>lcd  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <leader>lce  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <leader>lcc  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <leader>lco  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <leader>lcs  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <leader>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <leader>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <leader>p  :<C-u>CocListResume<CR>
 "================================================================
 
 
@@ -424,35 +414,36 @@ augroup omnisharp_commands
 "    " Finds members in the current buffer
 "    autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
 
-    autocmd FileType cs nnoremap <buffer> <c-x># :OmniSharpHighlightEcho<CR>
-    autocmd FileType cs nnoremap <buffer> <c-x>u :OmniSharpFixUsings<CR>
-"    autocmd FileType cs nnoremap <buffer> <Leader>tt :OmniSharpTypeLookup<CR>
-    autocmd FileType cs nnoremap <buffer> <c-x>K :OmniSharpSignatureHelp<CR>
+    autocmd FileType cs nnoremap <buffer> <leader>lohe :OmniSharpHighlightEcho<CR>
+    autocmd FileType cs nnoremap <buffer> <leader>lofx :OmniSharpFixUsings<CR>
+    autocmd FileType cs nnoremap <buffer> <leader>lott :OmniSharpTypeLookup<CR>
+    autocmd FileType cs nnoremap <buffer> <leader>K :OmniSharpSignatureHelp<CR>
     autocmd FileType cs inoremap <buffer> <c-x>K <C-o>:OmniSharpSignatureHelp<CR>
 
     " Find all code errors/warnings for the current solution and populate the quickfix window
-    autocmd FileType cs nnoremap <buffer> <c-x>c :OmniSharpGlobalCodeCheck<CR>
+    autocmd FileType cs nnoremap <buffer> <leader>locc :OmniSharpGlobalCodeCheck<CR>
 
     autocmd FileType cs inoremap <silent><expr> <C-Space> <C-x><c-o>
 
 "    " Contextual code actions (uses fzf, CtrlP or unite.vim when available)
-    autocmd FileType cs nnoremap <c-x>a :OmniSharpGetCodeActions<CR>
+    autocmd FileType cs nnoremap <leader>loa :OmniSharpGetCodeActions<CR>
 
 "    " Run code actions with text selected in visual mode to extract method
 "    autocmd FileType cs xnoremap <Leader>ac :call OmniSharp#GetCodeActions('visual')<CR>
 
     " Rename with dialog
-    autocmd FileType cs nnoremap <c-x>e :OmniSharpRename<CR>
+    autocmd FileType cs nnoremap <leader>lore :OmniSharpRename<CR>
     autocmd FileType cs nnoremap <F2> :OmniSharpRename<CR>
 
 "    " Rename without dialog - with cursor on the symbol to rename: `:Rename newname`
 "    autocmd FileType cs command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
 
-"    autocmd FileType cs nnoremap <Leader>f :OmniSharpCodeFormat<CR>
+    autocmd FileType cs nnoremap <Leader>lof :OmniSharpCodeFormat<CR>
 
-"    " Start the omnisharp server for the current solution
-"    autocmd FileType cs nnoremap <Leader>ss :OmniSharpStartServer<CR>
-"    autocmd FileType cs nnoremap <Leader>sp :OmniSharpStopServer<CR>
+    " Start the omnisharp server for the current solution
+    autocmd FileType cs nnoremap <Leader>loss :OmniSharpStartServer<CR>
+    autocmd FileType cs nnoremap <Leader>lors :OmniSharpRestartServer<CR>
+    autocmd FileType cs nnoremap <Leader>losp :OmniSharpStopServer<CR>
 augroup END
 
 function! GetSelection() abort

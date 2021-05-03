@@ -2,4 +2,4 @@ nvim/plugged
 nvim/rplugin
 nvim/.netrwhist
 nvim/**/*.old
-WindowsPowerShell/Modules
+WindowsPowerShell/**/Modules

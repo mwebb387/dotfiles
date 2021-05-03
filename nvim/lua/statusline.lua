@@ -5,15 +5,24 @@ local gls = gl.section
 
 gl.short_line_list = {'NvimTree','nerdtree','tagbar','fugitive','vim-plug','vista','dbui','packer'}
 
+-- Set initial bg color based on current theme
 local colors = require('galaxyline.theme').default
 local slbg = vim.fn.synIDattr(vim.fn.hlID('CursorLine'), 'bg') 
 colors.bg = slbg
+vim.api.nvim_command('hi StatusLine cterm=NONE gui=NONE guibg=' .. slbg)
 
-vim.api.nvim_command('hi StatusLine guibg=' .. slbg)
+local leftCaps = {'', '', '', '', ''}
+local rightCaps = {'', '', '', '', ''}
 
+-- Get random end cap chars
+local randCapIdx = math.random(#leftCaps - 1)
+local leftCap = leftCaps[randCapIdx]
+local rightCap = rightCaps[randCapIdx]
 
-local function sectionEndLeft() return '   ' end
-local function sectionEndRight() return '   ' end
+-- local function sectionEndLeft() return '   ' end
+-- local function sectionEndRight() return '   ' end
+local function sectionEndLeft() return '   ' .. leftCap end
+local function sectionEndRight() return rightCap .. '   ' end
 
 gls.left = {
   {
@@ -241,3 +250,46 @@ gls.short_line_right[1] = {
     highlight = {colors.fg,colors.bg}
   }
 }
+
+
+--
+-- Methods and module def for resetting the highlight based on current theme highlihts
+--
+local function resetHiForSection(sec, color)
+  for _, obj in ipairs(sec) do
+    for key, opt in pairs(obj) do
+
+      -- Handle the section caps differently than the normal sections
+      if key == 'SectionCapLeft' or key == 'SectionCapRight' then
+        opt.highlight[1] = color
+      else
+        opt.highlight[2] = color
+
+        -- Handle separator highlights
+        if opt.separator_highlight then
+          opt.separator_highlight[2] = color
+        end
+      end
+
+    end
+  end
+end
+
+local function resetHiForStatusLine(gl, color)
+  vim.api.nvim_command('hi StatusLine cterm=NONE gui=NONE guibg=' .. color)
+
+  resetHiForSection(gl.left, color)
+  resetHiForSection(gl.mid, color)
+  resetHiForSection(gl.right, color)
+
+  resetHiForSection(gl.short_line_left, color)
+  resetHiForSection(gl.short_line_right, color)
+end
+
+local M = {}
+function M.resetHighlights()
+  local bg = vim.fn.synIDattr(vim.fn.hlID('CursorLine'), 'bg') 
+  resetHiForStatusLine(gls, bg)
+end
+
+return M

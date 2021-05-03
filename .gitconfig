@@ -9,7 +9,7 @@
 [diff]
 	tool = vimdiff
 [difftool "vimdiff"]
-    path = "C:/Program Files (x86)/Vim/vim81/vim.exe"
+    path = "C:/Program Files (x86)/Vim/vim82/vim.exe"
 [difftool]
 	prompt = false
 [alias]

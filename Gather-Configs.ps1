@@ -26,3 +26,5 @@ function Distribute-Configs {
     }
   }
 }
+
+Gather-Configs

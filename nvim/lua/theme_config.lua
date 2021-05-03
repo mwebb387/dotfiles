@@ -3,6 +3,7 @@ local function colorscheme(scheme)
 end
 
 local themeModule = {}
+-- themeModule.__index = themeModule
 
 function themeModule.getPlugins()
   local plugins = {
@@ -18,10 +19,22 @@ function themeModule.getPlugins()
   return plugins
 end
 
-function themeModule.configure()
+function themeModule.setRandomTheme()
+  local allThemes = vim.api.nvim_eval([[
+      uniq(sort(map(globpath(&runtimepath, "colors/*.vim", 0, 1), 'fnamemodify(v:val, ":t:r")')))
+    ]])
+  
+  math.randomseed(os.time())
+  local randThemeIdx = math.random(#allThemes - 1)
+
+  colorscheme(allThemes[randThemeIdx])
+end
+
+function themeModule:configure()
   -- Theme 
   vim.o.termguicolors = true
-  colorscheme[[ deus ]]
+  -- colorscheme[[ deus ]]
+  self.setRandomTheme()
 end
 
 return themeModule
