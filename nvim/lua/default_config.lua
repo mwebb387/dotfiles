@@ -24,7 +24,8 @@ function defaultModule.configure()
 
   -- searching
   o.wildignore = 'obj/**,bin/**,node_modules/**'
-  o.grepprg = 'rg'
+  o.grepprg = 'rg --vimgrep --no-heading --smart-case'
+  o.grepformat = '%f:%l:%c:%m,%f:%l:%m'
 
   -- Better display for messages
   o.cmdheight = 2

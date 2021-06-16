@@ -15,8 +15,8 @@
 [alias]
   cob = "!f(){ git checkout -b ${1}; };f"
   col = "!f(){ git checkout ${1} && git branch -la; };f"
-  cot = "!f(){ git checkout --track ${1}/${2}; };f"
-  coto = "!f(){ git checkout --track origin/${1}; };f"
+  t = "!f(){ git checkout --track ${1}/${2}; };f"
+  to = "!f(){ git checkout --track origin/${1}; };f"
   bcol = "!f(){ git branch ${1} && git checkout ${1} && git branch -la; };f"
   bd = "!f(){ git branch -D ${1}; };f"
 	d = difftool
