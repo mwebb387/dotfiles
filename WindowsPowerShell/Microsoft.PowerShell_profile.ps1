@@ -1,6 +1,7 @@
 ﻿Import-Module posh-git
 Import-Module oh-my-posh
 Set-Theme Honukai
+# Set-PoshPrompt -Theme honukai
 
 # Chocolatey profile
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"

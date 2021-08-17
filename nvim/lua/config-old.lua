@@ -6,23 +6,34 @@ local function mergeDict(d1, d2)
   return d1
 end
 
-theme = require('theme_config')
+local function mapLength(m)
+  local len = 0
+  for key in pairs(m) do
+    len = len + 1
+  end
+
+  return len
+end
+
+local theme = require('theme_config')
 
 local M = {}
 
-function M.configure(...)
-  local args = {...}
-  print('Length: ' .. #args)
+function M.configure(modules)
   local plugs = {}
   local configMethods = {}
-  for i,v in ipairs(args) do
+
+  for i,v in ipairs(modules) do
     plugs = mergeDict(plugs, v.getPlugins())
+    print('Length module plugs: ' .. mapLength(v.getPlugins()))
     configMethods[i] = v.configure
   end
 
+  print('Length config methods: ' .. #configMethods)
+
   -- TODO: run vimplug cmds
-  print('Length plugs: ' .. #plugs)
-  if #plugs > 0 then
+  print('Length plugs: ' .. mapLength(plugs))
+  if mapLength(plugs) > 0 then
     print("call plug#begin(stdpath('config').'/plugged/');")
     for p,v in pairs(plugs) do
       print('Plug ' .. p)
@@ -38,4 +49,4 @@ end
 local temp = theme.getPlugins()
 print('Length getPlugins: ' .. #temp)
 
-M.configure(theme)
+M.configure{theme}

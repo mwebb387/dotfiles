@@ -3,7 +3,7 @@ local condition = require('galaxyline.condition')
 local fi = require('galaxyline.provider_fileinfo')
 local gls = gl.section
 
-gl.short_line_list = {'NvimTree','nerdtree','tagbar','fugitive','vim-plug','vista','dbui','packer'}
+gl.short_line_list = {'NvimTree','nerdtree','tagbar','fugitive','vim-plug','vista','dbui','packer', 'qf', 'help'}
 
 -- Set initial bg color based on current theme
 local colors = require('galaxyline.theme').default
@@ -19,8 +19,6 @@ local randCapIdx = math.random(#leftCaps - 1)
 local leftCap = leftCaps[randCapIdx]
 local rightCap = rightCaps[randCapIdx]
 
--- local function sectionEndLeft() return '   ' end
--- local function sectionEndRight() return '   ' end
 local function sectionEndLeft() return '   ' .. leftCap end
 local function sectionEndRight() return rightCap .. '   ' end
 
@@ -120,22 +118,24 @@ gls.left = {
 -- end
 
 gls.mid = {
-  -- {
-  --   ShowLspClient = {
-  --     provider = 'GetLspClient',
-  --     condition = midCondition,
-  --     icon = ' LSP:',
-  --     highlight = {colors.cyan,colors.bg,'bold'}
-  --   }
-  -- },
+  {
+    ShowLspClient = {
+      provider = 'GetLspClient',
+      condition = midCondition,
+      icon = '  ',
+      highlight = {colors.cyan,colors.bg,'bold'}
+    }
+  },
 
   {
     GitBranch = {
       -- provider = 'GitBranch',
-      provider = function() 
+      provider = function()
         return vim.fn['fugitive#head']()
       end,
       icon = '  ',
+      separator = ' ',
+      separator_highlight = {'NONE',colors.bg},
       condition = condition.check_git_workspace,
       highlight = {colors.violet,colors.bg,'bold'},
     }

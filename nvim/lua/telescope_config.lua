@@ -10,7 +10,6 @@ require('telescope').setup{
         ["<c-l>"] = actions.move_to_bottom,
       },
     },
-    prompt_position = "bottom",
     prompt_prefix = " ",
     selection_caret = " "
   }

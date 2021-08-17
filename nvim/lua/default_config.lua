@@ -1,15 +1,14 @@
 local defaultModule = {}
 
 function defaultModule.configure()
-  local o = vim.o
-  local wo = vim.wo
+  local o = vim.opt
 
   -- -- set foldmethod=syntax
   o.backup = false
   o.undofile = false
   o.swapfile = false
   o.hidden = true
-  wo.number = true
+  o.number = true
   o.showcmd = false
   o.showmode = false
 
@@ -22,7 +21,11 @@ function defaultModule.configure()
 
   o.omnifunc = 'syntaxcomplete#complete'
 
-  -- searching
+  -- Splits
+  o.splitbelow = true
+  o.splitright = true
+
+  -- Searching
   o.wildignore = 'obj/**,bin/**,node_modules/**'
   o.grepprg = 'rg --vimgrep --no-heading --smart-case'
   o.grepformat = '%f:%l:%c:%m,%f:%l:%m'
@@ -37,7 +40,7 @@ function defaultModule.configure()
   -- shortmess+=c
 
   -- always show signcolumns
-  wo.signcolumn = 'yes'
+  o.signcolumn = 'yes'
 
   o.completeopt = 'longest,menuone,preview'
   o.previewheight = 5
