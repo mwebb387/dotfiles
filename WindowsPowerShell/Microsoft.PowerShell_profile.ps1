@@ -1,7 +1,6 @@
 ﻿Import-Module posh-git
 Import-Module oh-my-posh
 Set-Theme Honukai
-# Set-PoshPrompt -Theme honukai
 
 # Chocolatey profile
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
@@ -24,23 +23,33 @@ Invoke-Expression (& {
 })
 
 # Load script library
+. "~\Documents\WindowsPowerShell\Scripts\choco.ps1"
 . "~\Documents\WindowsPowerShell\Scripts\creds.ps1"
 . "~\Documents\WindowsPowerShell\Scripts\dotnet.ps1"
+. "~\Documents\WindowsPowerShell\Scripts\git.ps1"
 . "~\Documents\WindowsPowerShell\Scripts\iis.ps1"
 . "~\Documents\WindowsPowerShell\Scripts\jira.ps1"
 . "~\Documents\WindowsPowerShell\Scripts\sudo.ps1"
 . "~\Documents\WindowsPowerShell\Scripts\touch.ps1"
 
 # Other scripts to load later
-function Start-PythonServer() {
+function Python-StartServer() {
     python -m http.server
 }
 
-function Open-GitRepo() {
+function Git-OpenRepo() {
     $RepoUrl = git config --get remote.origin.url
     if ($RepoUrl) {
         C:\Progra~2\Google\Chrome\Application\chrome.exe $RepoUrl
     } else {
         Write-Host "Not a git repo or no origin url"
     }
+}
+
+function Generate-CustomBookmarks() {
+    $CurPath = pwd 
+    $BookmarkToolPath = "C:\Users\mwebb\Documents\Playground\Javascript\Custom Bookmarks\"
+    cd $BookmarkToolPath
+    node .\index.js
+    cd $CurPath
 }

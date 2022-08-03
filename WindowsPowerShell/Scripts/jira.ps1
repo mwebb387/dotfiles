@@ -5,11 +5,13 @@ $query = "resolution = unresolved and status != 'Done' and status != 'Ready to D
 function Build-JiraQuery {
   param(
     [String] $Project = "",
-    [Bool] $ShowAll = $False
+    [Bool] $ShowAll = $False,
+    [Bool] $AllUsers = $False
   )
 
   $qProject = ""
   $qStatus = ""
+  $qUser = ""
 
   if ($Project) {
     $qProject = "and project = $Project"
@@ -19,7 +21,11 @@ function Build-JiraQuery {
     $qStatus = "and status != 'Done' and status != 'Ready to Deploy' and status != 'On Client Environment'"
   }
 
-  return "resolution = unresolved $qProject $qStatus and assignee=currentuser() ORDER BY issue, priority asc, created"
+  if (-Not $AllUsers) {
+    $qUser = "and assignee=currentuser()"
+  }
+
+  return "resolution = unresolved $qProject $qStatus $qUser ORDER BY issue, priority asc, created"
 }
 
 function Jira-ListIssues {
@@ -58,15 +64,21 @@ function Jira-OpenIssue {
 
 function Jira-ShowIssues {
   param(
-    $ShowAll = $False
+    $ShowAll = $False,
+    $AllUsers = $False
   )
 
-  jira list --template table --query (Build-JiraQuery -ShowAll $ShowAll)
+  jira list --template table --query (Build-JiraQuery -ShowAll $ShowAll -AllUsers $AllUsers)
 }
 
 function Jira-ShowProjectIssues {
+  param(
+    $ShowAll = $False,
+    $AllUsers = $False
+  )
+
   $Project = Jira-ListProjects | fzf
-  jira list --template table --query (Build-JiraQuery -Project $Project)
+  jira list --template table --query (Build-JiraQuery -Project $Project -ShowAll $ShowAll -AllUsers $AllUsers)
 }
 
 function Jira-ViewIssue {
@@ -74,7 +86,7 @@ function Jira-ViewIssue {
   jira view $Issue
 }
 
-function Move-JiraIssueToQA {
+function Jira-MoveIssueToQA {
   $Issue = Jira-ListIssues | fzf
   jira transition "Ready for QA" $Issue
 }
