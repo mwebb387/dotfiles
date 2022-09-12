@@ -173,8 +173,8 @@ EOF
 
 " TODO: vim.lsp.buf_get_clients()
 " TODO: diags
-set laststatus=3
-set statusline=%#String#%<\ \ %t\ %#Constant#%y%w%q%M%R%=%#Identifier#%{v:lua.SlGitBranch()}\ %#Statement#%{v:lua.SlLSPServer()}%=%#Type#%-14.(%l,%c%)\ %P\ \ 
+" set laststatus=3
+" set statusline=%#String#%<\ \ %t\ %#Constant#%y%w%q%M%R%=%#Identifier#%{v:lua.SlGitBranch()}\ %#Statement#%{v:lua.SlLSPServer()}%=%#Type#%-14.(%l,%c%)\ %P\ \ 
 
 
 lua <<EOF

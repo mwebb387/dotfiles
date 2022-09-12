@@ -37,6 +37,11 @@ function Python-StartServer() {
     python -m http.server
 }
 
+function Kontent-HostElement() {
+    cd ~/kontent-custom-element-host
+    python -m http.server
+}
+
 function Git-OpenRepo() {
     $RepoUrl = git config --get remote.origin.url
     if ($RepoUrl) {

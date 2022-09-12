@@ -4,7 +4,7 @@
 	signingKey = ""
 [core]
 	autocrlf = true
-	editor = \"C:\\Users\\mwebb\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\" --wait
+	editor = \"C:\\tools\\neovim\\nvim-win64\\bin\\nvim.exe\"
 	longpaths = true
 [diff]
 	tool = vimdiff
@@ -13,12 +13,13 @@
 [difftool]
 	prompt = false
 [alias]
-  cob = "!f(){ git checkout -b ${1}; };f"
+  a = add --interactive
   col = "!f(){ git checkout ${1} && git branch -la; };f"
   t = "!f(){ git checkout --track ${1}/${2}; };f"
   to = "!f(){ git checkout --track origin/${1}; };f"
   bcol = "!f(){ git branch ${1} && git checkout ${1} && git branch -la; };f"
   bd = "!f(){ git branch -D ${1}; };f"
+  bn = "!f(){ git checkout -b ${1}; };f"
 	d = difftool
   ff = "!f(){ git fetch ${1} ${2}:${2}; };f"
   ffo = "!f(){ git fetch origin ${1}:${1}; };f"
