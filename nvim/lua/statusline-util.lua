@@ -58,7 +58,15 @@ end
 local function truncate()
   return "%<"
 end
-local function highlight_group(hl, grp)
+local function highlight_group(hl, ...)
+  local grp
+  do
+    local result = ""
+    for _, v in ipairs({...}) do
+      result = (result .. v)
+    end
+    grp = result
+  end
   return (highlight(hl) .. "%(" .. grp .. "%)")
 end
-return {buffer_lines = buffer_lines, buffer_number = buffer_number, current_column = current_column, current_line = current_line, current_percent = current_percent, eval = eval, eval_lua = eval_lua, filename_full = filename_full, filename_relative = filename_relative, filename_tail = filename_tail, filetype = filetype, flag_modified = flag_modified, flag_preview = flag_preview, flag_quickfix = flag_quickfix, flag_readonly = flag_readonly, format = format, highlight = highlight, highlight_group = highlight_group, separator = separator, truncate = truncate, visible_percent = visible_percent}
+return {highlight = highlight, buffer_number = buffer_number, buffer_lines = buffer_lines, filename_relative = filename_relative, filename_full = filename_full, filename_tail = filename_tail, filetype = filetype, eval = eval, eval_lua = eval_lua, format = format, flag_preview = flag_preview, flag_modified = flag_modified, flag_quickfix = flag_quickfix, flag_readonly = flag_readonly, current_column = current_column, current_line = current_line, current_percent = current_percent, visible_percent = visible_percent, separator = separator, truncate = truncate, highlight_group = highlight_group}

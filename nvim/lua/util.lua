@@ -5,35 +5,48 @@ local function concat(list1, list2)
   return nil
 end
 local function includes(list, value)
-  local _let_0_ = list
-  local first = _let_0_[1]
-  local rest = {(table.unpack or unpack)(_let_0_, 2)}
+  local _let_1_ = list
+  local first = _let_1_[1]
+  local rest = (function (t, k, e) local mt = getmetatable(t) if 'table' == type(mt) and mt.__fennelrest then return mt.__fennelrest(t, k) elseif e then local rest = {} for k, v in pairs(t) do if not e[k] then rest[k] = v end end return rest else return {(table.unpack or unpack)(t, k)} end end)(_let_1_, 2)
   return ((first == value) or ((#rest > 0) and includes(rest, value)))
 end
 local function filter(list, filter_fn)
-  local tbl_0_ = {}
+  local tbl_15_auto = {}
+  local i_16_auto = #tbl_15_auto
   for _, v in ipairs(list) do
-    local _0_
+    local val_17_auto
     if filter_fn(v) then
-      _0_ = v
+      val_17_auto = v
     else
-    _0_ = nil
+      val_17_auto = nil
     end
-    tbl_0_[(#tbl_0_ + 1)] = _0_
+    if (nil ~= val_17_auto) then
+      i_16_auto = (i_16_auto + 1)
+      do end (tbl_15_auto)[i_16_auto] = val_17_auto
+    else
+    end
   end
-  return tbl_0_
+  return tbl_15_auto
 end
 local function map(list, map_fn)
-  local tbl_0_ = {}
+  local tbl_15_auto = {}
+  local i_16_auto = #tbl_15_auto
   for _, v in ipairs(list) do
-    tbl_0_[(#tbl_0_ + 1)] = map_fn(v)
+    local val_17_auto = map_fn(v)
+    if (nil ~= val_17_auto) then
+      i_16_auto = (i_16_auto + 1)
+      do end (tbl_15_auto)[i_16_auto] = val_17_auto
+    else
+    end
   end
-  return tbl_0_
+  return tbl_15_auto
 end
 local function first(list, filter_fn)
   local matches = filter(list, filter_fn)
   if (#matches > 0) then
     return matches[1]
+  else
+    return nil
   end
 end
 local function any(list, filter_fn)

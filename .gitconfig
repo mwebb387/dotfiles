@@ -4,7 +4,7 @@
 	signingKey = ""
 [core]
 	autocrlf = true
-	editor = \"C:\\tools\\neovim\\nvim-win64\\bin\\nvim.exe\"
+	editor = \"C:\\Users\\mwebb\\scoop\\apps\\neovim\\current\\bin\\nvim.exe\"
 	longpaths = true
 [diff]
 	tool = vimdiff

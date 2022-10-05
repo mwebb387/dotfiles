@@ -1,14 +1,14 @@
 local function on_attach(client, bufnr)
   local buf_keymap
-  local function _0_(...)
+  local function _1_(...)
     return vim.api.nvim_buf_set_keymap(bufnr, ...)
   end
-  buf_keymap = _0_
+  buf_keymap = _1_
   local buf_option
-  local function _1_(...)
+  local function _2_(...)
     return vim.api.nvim_buf_set_option(bufnr, ...)
   end
-  buf_option = _1_
+  buf_option = _2_
   buf_option("omnifunc", "v:lua.vim.lsp.omnifunc")
   do
     local opts = {noremap = true, silent = true}
@@ -33,21 +33,24 @@ local function on_attach(client, bufnr)
     buf_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
     buf_keymap("n", "<leader>ll", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
     buf_keymap("n", "<leader>lq", "<cmd>lua vim.diagnostic.setqflist()<CR>", opts)
-    if client.resolved_capabilities.goto_definition then
+    if client.server_capabilities.goto_definition then
       buf_option("tagfunc", "v:lua.vim.lsp.tagfunc")
+    else
     end
-    if client.resolved_capabilities.document_formatting then
+    if client.server_capabilities.document_formatting then
       buf_keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
       buf_option("formatexpr", "v:lua.vim.lsp.formatexpr()")
+    else
     end
-    if client.resolved_capabilities.document_range_formatting then
+    if client.server_capabilities.document_range_formatting then
       buf_keymap("v", "<leader>lf", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+    else
     end
   end
-  if client.resolved_capabilities.document_highlight then
-    vim.cmd("highlight LspReferenceRead ctermbg=red cterm=bold guibg=LightYellow")
-    vim.cmd("highlight LspReferenceText ctermbg=red cterm=bold guibg=LightYellow")
-    vim.cmd("highlight LspReferenceWrite ctermbg=red cterm=bold guibg=LightYellow")
+  if client.server_capabilities.document_highlight then
+    vim.cmd("highlight LspReferenceRead ctermbg=red guibg=LightYellow cterm=bold")
+    vim.cmd("highlight LspReferenceText ctermbg=red guibg=LightYellow cterm=bold")
+    vim.cmd("highlight LspReferenceWrite ctermbg=red guibg=LightYellow cterm=bold")
     vim.cmd(("augroup " .. "lsp_document_highlight"))
     vim.cmd("autocmd!")
     do
@@ -55,6 +58,8 @@ local function on_attach(client, bufnr)
       vim.cmd("autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()")
     end
     return vim.cmd("augroup END")
+  else
+    return nil
   end
 end
 return {["on-attach"] = on_attach}

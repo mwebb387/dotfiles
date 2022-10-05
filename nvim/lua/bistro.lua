@@ -1,5 +1,5 @@
-local _local_0_ = require("util")
-local concat = _local_0_["concat"]
+local _local_1_ = require("util")
+local concat = _local_1_["concat"]
 local function anyMissingPlugins()
   return (vim.fn.len(vim.fn.filter(vim.fn.values(vim.g.plugs), "!isdirectory(v:val.dir)")) > 0)
 end
@@ -7,18 +7,16 @@ local function pconfigure(config)
   local res, err = pcall(config)
   if not res then
     return print(err)
+  else
+    return nil
   end
 end
 local function addPlugins(self, plugins)
   return concat(self.plugins, plugins)
 end
 local function build(self)
-  if (self.sourceDir == "") then
-    print("Please set the Bistro source directory")
-  else
-    local buildScript = (self.sourceDir .. "../build.fnl")
-    local buildDir = (vim.fn.stdpath("config") .. "/" .. "lua" .. "/")
-    local cmd = ("!" .. "fennel" .. " " .. buildScript .. " " .. self.sourceDir .. " " .. buildDir)
+  do
+    local cmd = ("!" .. "powershell" .. " " .. "bistro-build.ps1")
     vim.cmd(cmd)
   end
   return self
@@ -48,14 +46,15 @@ local function loadPlugins(self, plugins)
     local plug_path = (vim.fn.stdpath("config") .. "/plugged/")
     vim.fn["plug#begin"](plug_path)
     for _, plugin in ipairs((plugins or self.plugins)) do
-      local _0_ = type(plugin)
-      if (_0_ == "string") then
+      local _5_ = type(plugin)
+      if (_5_ == "string") then
         vim.fn["plug#"](plugin)
-      elseif (_0_ == "table") then
-        local _let_0_ = plugin
-        local repo = _let_0_[1]
-        local options = _let_0_[2]
+      elseif (_5_ == "table") then
+        local _let_6_ = plugin
+        local repo = _let_6_[1]
+        local options = _let_6_[2]
         vim.fn["plug#"](repo, options)
+      else
       end
     end
     vim.fn["plug#end"]()
@@ -79,18 +78,18 @@ local function setupRecipes(self)
     for key, value in pairs(self.config.options) do
       vim["opt"][key] = value
     end
-    for _, _0_ in ipairs(self.config.keymaps) do
-      local _each_0_ = _0_
-      local maps = _each_0_[1]
-      local lhs = _each_0_[2]
-      local rhs = _each_0_[3]
-      local opts = _each_0_[4]
+    for _, _8_ in ipairs(self.config.keymaps) do
+      local _each_9_ = _8_
+      local maps = _each_9_[1]
+      local lhs = _each_9_[2]
+      local rhs = _each_9_[3]
+      local opts = _each_9_[4]
       vim.keymap.set(maps, lhs, rhs, opts)
     end
-    for key, _0_ in pairs(self.config.commands) do
-      local _each_0_ = _0_
-      local cmd = _each_0_[1]
-      local opts = _each_0_[2]
+    for key, _10_ in pairs(self.config.commands) do
+      local _each_11_ = _10_
+      local cmd = _each_11_[1]
+      local opts = _each_11_[2]
       vim.api.nvim_create_user_command(key, cmd, opts)
     end
     for _, setupFn in ipairs(self.config.setup) do
@@ -104,6 +103,6 @@ local function setup(self)
   self:setupRecipes()
   return self
 end
-local bistro = {addPlugins = addPlugins, autoInstallPluginManager = true, build = build, configs = {}, editRecipe = editRecipe, loadPlugins = loadPlugins, plugins = {}, refresh = refresh, setup = setup, setupRecipes = setupRecipes, sourceDir = "C:\\Users\\mwebb\\fennel\\src\\", syncPlugins = true}
+local bistro = {configs = {}, plugins = {}, sourceDir = "", autoInstallPluginManager = true, syncPlugins = true, addPlugins = addPlugins, build = build, editRecipe = editRecipe, loadPlugins = loadPlugins, refresh = refresh, setup = setup, setupRecipes = setupRecipes}
 require("configure")(bistro)
 return bistro

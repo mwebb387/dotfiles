@@ -424,7 +424,7 @@ autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType javascript.jsx setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType scss setlocal shiftwidth=2 softtabstop=2 expandtab
 " autocmd FileType cs let b:coc_root_patterns = ['*.sln', '.git', '.env']
-" autocmd FileType cs setlocal shiftwidth=4 softtabstop=4 expandtab
+autocmd FileType cs setlocal shiftwidth=4 softtabstop=4 expandtab
 " autocmd BufNewFile,BufRead *.cshtml set syntax=html
 
 " command! BrowseLua exe 'Explore '.stdpath('config').'/lua/'
