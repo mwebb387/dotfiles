@@ -27,6 +27,7 @@ function Git-FastForward {
 
   if ($branch -And $branch.Trim()) {
     git fetch origin $($branch.Trim()):$($branch.Trim())
+    git status
   }
 }
 
@@ -66,6 +67,7 @@ function Git-Restore {
 
   if ($files.Length) {
     git restore -- $files
+    git status
   }
 
   cd $curPath
@@ -84,6 +86,7 @@ function Git-Stage {
 
   if ($files.Length) {
     git add -- $files
+    git status
   }
 
   cd $curPath
@@ -104,6 +107,7 @@ function Git-Unstage {
 
   if ($files.Length) {
     git restore --staged -- $files
+    git status
   }
 
   cd $curPath

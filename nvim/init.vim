@@ -152,35 +152,8 @@ nnoremap <Space> <Nop>
 let mapleader=" "
 let localleader=" "
 
-lua <<EOF
-_G.SlGitBranch = function()
-  if (vim.b.gitsigns_head and vim.b.gitsigns_head ~= "") then
-    return " " .. vim.b.gitsigns_head
-  end
-
-  return ""
-end
-
-_G.SlLSPServer = function()
-  local clients = vim.lsp.buf_get_clients()
-  if (clients and #clients > 0) then
-    return " " .. clients[1].name
-  end
-
-  return ""
-end
-EOF
-
-" TODO: vim.lsp.buf_get_clients()
-" TODO: diags
-" set laststatus=3
-" set statusline=%#String#%<\ \ %t\ %#Constant#%y%w%q%M%R%=%#Identifier#%{v:lua.SlGitBranch()}\ %#Statement#%{v:lua.SlLSPServer()}%=%#Type#%-14.(%l,%c%)\ %P\ \ 
-
 
 lua <<EOF
---require'bistro'
---  :loadPlugins()
---  :configureRecipes()
 require'bistro':setup()
 EOF
 
@@ -702,6 +675,39 @@ autocmd FileType cs setlocal shiftwidth=4 softtabstop=4 expandtab
 "     autocmd filetype cs nnoremap <leader>losr :OmniSharpRestartServer<cr>
 "     autocmd filetype cs nnoremap <leader>losp :OmniSharpStopServer<cr>
 " augroup end
+
+" Redefine Fzf commands
+
+let s:batOpts = 'bat --color always --style changes --theme Coldark-Dark -m *.fnl:Lisp {}'
+" let s:fzfOpts = {'options': ['--preview', s:batOpts, '--bind', 'ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up']}
+let s:fzfOpts = {'options': ['--preview', 'powershell -noprofile fzf-preview.ps1 "files" {}', '--bind', 'ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up']}
+let s:fzfGitOpts = {'options': ['--preview', 'git diff {}', '--bind', 'ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up']}
+" let s:OmniSharp_highlight_groups = {
+" \ 'ParameterName': 'csNewType',
+" \ 'LocalName': 'csNewType'
+" \}
+" command!      -bang -nargs=? -complete=dir Files       call fzf#vim#files(<q-args>, s:fzfOpts, <bang>0)
+" command!      -bang -nargs=? GitFiles                  call fzf#vim#gitfiles(<q-args>, s:fzfOpts, <bang>0)
+" command!      -bang -nargs=? GFiles                    call fzf#vim#gitfiles(<q-args>, s:fzfOpts, <bang>0)
+" command! -bar -bang -nargs=? -complete=buffer Buffers  call fzf#vim#buffers(<q-args>, s:fzfOpts, <bang>0)
+" command!      -bang -nargs=* Lines                     call fzf#vim#lines(<q-args>, <bang>0)
+" command!      -bang -nargs=* BLines                    call fzf#vim#buffer_lines(<q-args>, <bang>0)
+" command! -bar -bang Colors                             call fzf#vim#colors(<bang>0)
+" command!      -bang -nargs=+ -complete=dir Locate      call fzf#vim#locate(<q-args>, s:fzfOpts, <bang>0)
+" command!      -bang -nargs=* Ag                        call fzf#vim#ag(<q-args>, s:fzfOpts, <bang>0)
+" command!      -bang -nargs=* Rg                        call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1, s:fzfOpts, <bang>0)
+" command!      -bang -nargs=* Tags                      call fzf#vim#tags(<q-args>, s:fzfOpts, <bang>0)
+" command!      -bang -nargs=* BTags                     call fzf#vim#buffer_tags(<q-args>, s:fzfOpts, <bang>0)
+" command! -bar -bang Snippets                           call fzf#vim#snippets(<bang>0)
+" command! -bar -bang Commands                           call fzf#vim#commands(<bang>0)
+" command! -bar -bang Marks                              call fzf#vim#marks(<bang>0)
+" command! -bar -bang Helptags                           call fzf#vim#helptags(s:fzfOpts, <bang>0)
+" command! -bar -bang Windows                            call fzf#vim#windows(<bang>0)
+" command! -bar -bang -range=% Commits                   let b:fzf_winview = winsaveview() | <line1>,<line2>call fzf#vim#commits(s:fzfOpts, <bang>0)
+" command! -bar -bang -range=% BCommits                  let b:fzf_winview = winsaveview() | <line1>,<line2>call fzf#vim#buffer_commits(s:fzfOpts, <bang>0)
+" command! -bar -bang Maps                               call fzf#vim#maps("n", <bang>0)
+" command! -bar -bang Filetypes                          call fzf#vim#filetypes(<bang>0)
+" command!      -bang -nargs=* History                   call s:history(<q-args>, s:fzfOpts, <bang>0)
 
 function! GetSelection() abort
   return getline("'<")[getpos("'<")[2]-1:getpos("'>")[2]]"'")"'")]"'")

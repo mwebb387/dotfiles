@@ -93,7 +93,7 @@ local function setupRecipes(self)
       vim.api.nvim_create_user_command(key, cmd, opts)
     end
     for _, setupFn in ipairs(self.config.setup) do
-      setupFn()
+      pconfigure(setupFn)
     end
   end
   return self

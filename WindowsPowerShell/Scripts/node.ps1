@@ -1,5 +1,5 @@
 function Npm-Run {
-  $file = fd package.json | fzf
+  $file = fd package.json | fzf -1
 
   if (-Not $file) {
     return
@@ -23,7 +23,7 @@ function Npm-Run {
 }
 
 function Npm-Start {
-  $file = fd package.json | fzf
+  $file = fd package.json | fzf -1
 
   if (-Not $file) {
     return
@@ -34,4 +34,36 @@ function Npm-Start {
 
   # npm run selection
   npm start --prefix $root
+}
+
+function Npm-Install {
+  $file = fd package.json | fzf -1
+
+  if (-Not $file) {
+    return
+  }
+
+  # Get parent directory of package file
+  $root = (Get-Item $file).Directory.FullName
+
+  # npm install at root
+  npm i --prefix $root
+}
+
+function Npm-Do ($Cmd) {
+  if (-Not $Cmd) {
+    $Cmd = Read-Host -Prompt "NPM command:"
+  }
+
+  $file = fd package.json | fzf -1
+
+  if (-Not $file) {
+    return
+  }
+
+  # Get parent directory of package file
+  $root = (Get-Item $file).Directory.FullName
+
+  # npm run selection
+  npm $Cmd --prefix $root
 }
