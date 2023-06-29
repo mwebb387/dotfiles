@@ -17,7 +17,7 @@ local function filename_tail()
   return "%t"
 end
 local function filetype()
-  return "%y"
+  return "%Y"
 end
 local function eval(str)
   return ("%{" .. str .. "}")
@@ -69,4 +69,19 @@ local function highlight_group(hl, ...)
   end
   return (highlight(hl) .. "%(" .. grp .. "%)")
 end
-return {highlight = highlight, buffer_number = buffer_number, buffer_lines = buffer_lines, filename_relative = filename_relative, filename_full = filename_full, filename_tail = filename_tail, filetype = filetype, eval = eval, eval_lua = eval_lua, format = format, flag_preview = flag_preview, flag_modified = flag_modified, flag_quickfix = flag_quickfix, flag_readonly = flag_readonly, current_column = current_column, current_line = current_line, current_percent = current_percent, visible_percent = visible_percent, separator = separator, truncate = truncate, highlight_group = highlight_group}
+local function get_hi_attr(hi, attr)
+  return vim.fn.synIDattr(vim.fn.hlID(hi), attr)
+end
+local function def_hi_rev(hi)
+  local hi_rev = (hi .. "_Reverse")
+  local fg = get_hi_attr(hi, "fg")
+  local bg = "black"
+  return vim.api.nvim_set_hl(0, hi_rev, {fg = bg, bg = fg})
+end
+local function def_hi_fg_bg(hi_fg, hi_bg)
+  local hi_rev = (hi_fg .. "_" .. hi_bg)
+  local fg = get_hi_attr(hi_fg, "fg")
+  local bg = get_hi_attr(hi_bg, "bg")
+  return vim.api.nvim_set_hl(0, hi_rev, {fg = fg, bg = bg})
+end
+return {highlight = highlight, buffer_number = buffer_number, buffer_lines = buffer_lines, filename_relative = filename_relative, filename_full = filename_full, filename_tail = filename_tail, filetype = filetype, eval = eval, eval_lua = eval_lua, format = format, flag_preview = flag_preview, flag_modified = flag_modified, flag_quickfix = flag_quickfix, flag_readonly = flag_readonly, current_column = current_column, current_line = current_line, current_percent = current_percent, visible_percent = visible_percent, separator = separator, truncate = truncate, highlight_group = highlight_group, def_hi_rev = def_hi_rev, def_hi_fg_bg = def_hi_fg_bg}

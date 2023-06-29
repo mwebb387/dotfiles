@@ -1,4 +1,53 @@
-local M = {}
+-- function getHiAttr(hi, attr)
+--   return vim.fn.synIDattr(vim.fn.hlID(hi), attr)
+-- end
+--
+-- function defHiRev(hi)
+--   local hi_rev = hi .. '_Reverse'
+--   local fg = getHiAttr(hi, 'fg')
+--   -- local bg = getHiAttr('NonText', 'fg')
+--   local bg = 'black'
+--   vim.api.nvim_set_hl(0, hi_rev, {
+--     fg = bg,
+--     bg = fg
+--   })
+-- end
+--
+-- defHiRev('Identifier')
+-- defHiRev('Constant')
+
+vim.cmd.packadd('fluid')
+local fluid = require('fluid')
+
+fluid:reset()
+
+_ = fluid
+  / 'statusline'
+    * 'test'
+  / 'winbar'
+    * 'filename' *'fileicon'
+  / 'theme'
+    * 'nightfox'
+
+fluid:setup()
+
+  -- :statusline() + 'test'
+    -- :options('global')
+  --
+  -- :module('winbar')
+  --   :option('filename')
+  --   :option('fileicon')
+  --
+  -- :module('theme')
+  --   :options('nightfox')
+
+print(fluid)
+
+-- local test = require('fzf-opts')
+
+-- vim.pretty_print(test.create_opts())
+
+--[[ local M = {}
 
 function M.make(arg)
   local lines = {""}
@@ -89,4 +138,4 @@ end
 
 M.grep('conf')
 
-return M
+return M ]]

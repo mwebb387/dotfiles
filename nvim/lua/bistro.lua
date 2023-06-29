@@ -86,10 +86,20 @@ local function setupRecipes(self)
       local opts = _each_9_[4]
       vim.keymap.set(maps, lhs, rhs, opts)
     end
-    for key, _10_ in pairs(self.config.commands) do
-      local _each_11_ = _10_
-      local cmd = _each_11_[1]
-      local opts = _each_11_[2]
+    do
+      local grp = vim.api.nvim_create_augroup("BistroCmds", {clear = true})
+      for _, _10_ in ipairs(self.config.autocmds) do
+        local _each_11_ = _10_
+        local event = _each_11_[1]
+        local opts = _each_11_[2]
+        opts["group"] = grp
+        vim.api.nvim_create_autocmd(event, opts)
+      end
+    end
+    for key, _12_ in pairs(self.config.commands) do
+      local _each_13_ = _12_
+      local cmd = _each_13_[1]
+      local opts = _each_13_[2]
       vim.api.nvim_create_user_command(key, cmd, opts)
     end
     for _, setupFn in ipairs(self.config.setup) do

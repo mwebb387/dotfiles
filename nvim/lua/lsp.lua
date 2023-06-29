@@ -48,9 +48,9 @@ local function on_attach(client, bufnr)
     end
   end
   if client.server_capabilities.document_highlight then
-    vim.cmd("highlight LspReferenceRead ctermbg=red cterm=bold guibg=LightYellow")
-    vim.cmd("highlight LspReferenceText ctermbg=red cterm=bold guibg=LightYellow")
-    vim.cmd("highlight LspReferenceWrite ctermbg=red cterm=bold guibg=LightYellow")
+    vim.cmd("highlight LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow")
+    vim.cmd("highlight LspReferenceText cterm=bold ctermbg=red guibg=LightYellow")
+    vim.cmd("highlight LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow")
     vim.cmd(("augroup " .. "lsp_document_highlight"))
     vim.cmd("autocmd!")
     do
@@ -62,4 +62,4 @@ local function on_attach(client, bufnr)
     return nil
   end
 end
-return {["on-attach"] = on_attach}
+return {on_attach = on_attach}

@@ -6,7 +6,8 @@ function Git-ChangeToRoot {
 }
 
 function Git-Checkout {
-  $branches = git branch --no-contains | % { $_.Trim() } 
+  $curBranch = git branch --show-current
+  $branches = git branch -l | ? { $_ -NotContains $curBranch } | % { $_.Trim() } 
   $branch = $branches | fzf --layout=reverse --preview 'git log --color=always --decorate --oneline {}'
 
   if ($branch -And $branch.Trim()) {

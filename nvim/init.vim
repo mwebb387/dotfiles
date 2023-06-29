@@ -155,6 +155,109 @@ let localleader=" "
 
 lua <<EOF
 require'bistro':setup()
+
+vim.keymap.set('n', '<tab>', '<c-w>w')
+vim.keymap.set('n', '<s-tab>', '<c-w>W')
+vim.keymap.set('n', '<up>', '<c-w>w')
+vim.keymap.set('n', '<down>', '<c-w>W')
+vim.keymap.set('n', '<right>', ':bn<CR>')
+vim.keymap.set('n', '<left>', ':bp<CR>')
+
+-- vim.keymap.set(
+--   'n',
+--   '<leader>b',
+--   -- Custom find buffers function.
+--   function()
+--     local results = {}
+--     local buffers = vim.api.nvim_list_bufs()
+--
+--     for _, buffer in ipairs(buffers) do
+--       local filename = vim.api.nvim_buf_get_name(buffer)
+--
+--       if vim.api.nvim_buf_is_loaded(buffer) and vim.fn.filereadable(filename) ~= 0 then
+--         table.insert(results, { filename = filename })
+--       end
+--     end
+--
+--     print('Num buffers: ' .. #results)
+--
+--     if (#results > 1) then
+--       vim.fn.setloclist(0, results)
+--       vim.cmd.lopen()
+--     end
+--   end,
+--   {silent = true})
+
+vim.cmd.packadd 'fluid'
+require 'fluid'
+-- UI
+  :theme():option('fluoromachine')
+  :devicons()
+  :dressing()
+  :statusline()
+  :winbar()
+
+-- Nvim
+  :netrw()
+  :quickfix()
+
+-- Editor
+  :asyncrun()
+  :autopairs()
+  :cmp()
+  :comment()
+  :fluidmotion()
+  :leap()
+  :lsp():option('icons')
+  :surround()
+  :treesitter()
+   :options('highlight', 'incremental_selection', 'indent', 'folding')
+  -- :nullls()
+  :undotree()
+  :vimslash()
+  :whichkey()
+
+-- Languages
+  :csharp()
+    :options('treesitter', 'lsp')
+  :css()
+    :options('treesitter')
+  -- deno():options('lsp')
+  :emmet()
+  -- :fennel()
+  :lualang()
+    :options('lsp')
+  :typescript()
+    :options('treesitter', 'lsp')
+  :neorg()
+  :tailwindcss()
+
+-- Tools
+---> Git
+  :gitsigns()
+  :diffview()
+  -- :fugitive()
+  :neogit()
+  -- :lazygit()
+
+---> File Browsers
+  -- :oil()
+  -- :nvimtree()
+  -- :dirbuf()
+  -- :dirvish()
+  -- :vifm()
+
+---> Fuzzy Finders
+  :fzf()
+  :telescope()
+
+---> Terminal
+  :fterm()
+
+---> Other
+  :images()
+
+  :setup()
 EOF
 
 " custom key-maps
@@ -678,10 +781,10 @@ autocmd FileType cs setlocal shiftwidth=4 softtabstop=4 expandtab
 
 " Redefine Fzf commands
 
-let s:batOpts = 'bat --color always --style changes --theme Coldark-Dark -m *.fnl:Lisp {}'
+" let s:batOpts = 'bat --color always --style changes --theme Coldark-Dark -m *.fnl:Lisp {}'
 " let s:fzfOpts = {'options': ['--preview', s:batOpts, '--bind', 'ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up']}
-let s:fzfOpts = {'options': ['--preview', 'powershell -noprofile fzf-preview.ps1 "files" {}', '--bind', 'ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up']}
-let s:fzfGitOpts = {'options': ['--preview', 'git diff {}', '--bind', 'ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up']}
+" let s:fzfOpts = {'options': ['--preview', 'powershell -noprofile fzf-preview.ps1 "files" {}', '--bind', 'ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up']}
+" let s:fzfGitOpts = {'options': ['--preview', 'git diff {}', '--bind', 'ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up']}
 " let s:OmniSharp_highlight_groups = {
 " \ 'ParameterName': 'csNewType',
 " \ 'LocalName': 'csNewType'

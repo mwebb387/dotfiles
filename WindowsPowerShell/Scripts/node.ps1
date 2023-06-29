@@ -65,5 +65,8 @@ function Npm-Do ($Cmd) {
   $root = (Get-Item $file).Directory.FullName
 
   # npm run selection
-  npm $Cmd --prefix $root
+  $curDir = pwd
+  cd $root
+  npm $Cmd
+  cd $curDir
 }
