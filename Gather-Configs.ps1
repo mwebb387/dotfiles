@@ -1,8 +1,9 @@
 $git = @{ src = '~/.gitconfig'; dest = './.gitconfig'; exclude = $null }
 $nvim = @{ src = '~/AppData/Local/nvim'; dest = './nvim'; exclude = '~/AppData/Local/nvim/plugged/*', '~/AppData/Local/nvim/rplugin/*' }
-$ps = @{ src = '~/Documents/WindowsPowerShell'; dest = './WindowsPowerShell'; exclude = @('~/Documents/WindowsPowerShell/Modules/*') }
+$psOld = @{ src = '~/Documents/WindowsPowerShell'; dest = './WindowsPowerShell'; exclude = @('~/Documents/WindowsPowerShell/Modules/*') }
+$ps = @{ src = '~/Documents/PowerShell'; dest = './PowerShell'; exclude = @('~/Documents/PowerShell/Modules/*') }
 
-$paths = $git, $nvim, $ps
+$paths = $git, $nvim, $psOld, $ps
 
 function CopyFilesToFolder ($fromFolder, $toFolder, $exclude) {
   $childItems = Get-ChildItem $fromFolder

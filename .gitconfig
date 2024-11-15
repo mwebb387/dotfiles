@@ -1,11 +1,10 @@
 [user]
-	email = mwebb@bizstream.com
-	name = Mike Webb
 	signingKey = ""
 [core]
 	autocrlf = true
 	editor = \"C:\\Users\\mwebb\\scoop\\apps\\neovim\\current\\bin\\nvim.exe\"
 	longpaths = true
+	sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
 [diff]
 	tool = vimdiff
 [difftool "vimdiff"]
@@ -41,3 +40,5 @@
 	gpgSign = false
 [tag]
 	forceSignAnnotated = false
+[gui]
+	recentrepo = C:/repos/bzs/altafiber-web

@@ -3,3 +3,4 @@ nvim/rplugin
 nvim/.netrwhist
 nvim/**/*.old
 WindowsPowerShell/**/Modules
+PowerShell/**/Modules

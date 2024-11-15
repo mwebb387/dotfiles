@@ -4,23 +4,18 @@ let mapleader=" "
 let localleader=" "
 
 lua <<EOF
-vim.keymap.set('n', '<up>', '<c-w>w')
-vim.keymap.set('n', '<down>', '<c-w>W')
-vim.keymap.set('n', '<right>', ':bn<CR>')
-vim.keymap.set('n', '<left>', ':bp<CR>')
-
 vim.cmd.packadd 'fluid'
 require 'fluid'
 -- UI
   :theme()
-    :option('catppuccin')
+    :option('nightfox')
   :devicons()
   :dressing()
   :statusline()
   :winbar()
 
 -- Nvim
-  :netrw()
+  -- :netrw()
   :quickfix()
 
 -- Editor
@@ -28,18 +23,27 @@ require 'fluid'
   :autopairs()
   :cmp()
   -- :comment()
-  :fluidmotion()
-    :options('win')
-  :leap()
   :lsp()
     :options('icons', 'server_management')
   :surround()
   :treesitter()
    :options('highlight', 'incremental_selection', 'indent', 'folding')
   -- :nullls()
+  -- :precognition()
+  :harpoon()
+  :buffish()
+  -- :qbuf()
   :undotree()
   :vimslash()
   :whichkey()
+
+-- Motion
+  :aerial()
+  :arrow()
+  :fluidmotion()
+    :options('win')
+  :leap()
+  :portal()
 
 -- Languages
   :csharp()
@@ -50,7 +54,8 @@ require 'fluid'
     :options('lsp')
   :emmet()
   -- :fennel()
-  -- :fsharp()
+  :fsharp()
+    :options('lsp')
   :graphql()
     :options('treesitter', 'lsp')
   :html()
@@ -70,12 +75,13 @@ require 'fluid'
 ---> Git
   :gitsigns()
   :diffview()
-  :rest()
-  :syspackman()
-    :options('scoop')
   -- :fugitive()
   -- :neogit()
   -- :lazygit()
+  :rest()
+  :syspackman()
+    :options('scoop')
+  :vimwiki()
 
 ---> File Browsers
   :oil()

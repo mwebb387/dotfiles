@@ -1,5 +1,5 @@
 #Oh my posh init
-oh-my-posh init pwsh --config "~\.mytheme.omp.json" | Invoke-Expression
+oh-my-posh init pwsh --config "~\.myuew.omp.json" | Invoke-Expression
 Import-Module posh-git
 
 #Zoxide inti
@@ -14,13 +14,14 @@ $Env:REPO_ROOT = "C:\repos\bzs\"
 #. "~\Documents\WindowsPowerShell\Scripts\creds.ps1"
 #. "~\Documents\WindowsPowerShell\Scripts\dotnet.ps1"
 #. "~\Documents\WindowsPowerShell\Scripts\fs.ps1"
-. "~\Documents\WindowsPowerShell\Scripts\git.ps1"
+. "~\Documents\PowerShell\Scripts\git.ps1"
 #. "~\Documents\WindowsPowerShell\Scripts\iis.ps1"
 #. "~\Documents\WindowsPowerShell\Scripts\jira.ps1"
 #. "~\Documents\WindowsPowerShell\Scripts\node.ps1"
-. "~\Documents\WindowsPowerShell\Scripts\packages.ps1"
-. "~\Documents\WindowsPowerShell\Scripts\sudo.ps1"
-. "~\Documents\WindowsPowerShell\Scripts\touch.ps1"
+. "~\Documents\PowerShell\Scripts\packages.ps1"
+. "~\Documents\PowerShell\Scripts\sudo.ps1"
+. "~\Documents\PowerShell\Scripts\sqlserver-youthcenter.ps1"
+. "~\Documents\PowerShell\Scripts\touch.ps1"
 
 # Import the Chocolatey Profile that contains the necessary code to enable
 # tab-completions to function for `choco`.
